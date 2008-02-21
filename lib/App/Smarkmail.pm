@@ -5,6 +5,7 @@ package App::Smarkmail;
 use Email::MIME;
 use Email::MIME::Creator;
 use Email::MIME::Modifier;
+use HTML::Entities ();
 use Text::Markdown;
 
 sub markdown_email {
@@ -18,7 +19,7 @@ sub markdown_email {
     my ($text, $html) = $self->_parts_from_text($to_send);
 
     $to_send->content_type_set('multipart/alternative');
-    $to_send->parts_set([ $html, $text ]);
+    $to_send->parts_set([ $text, $html ]);
   } elsif ($to_send->content_type =~ m{^multipart/(?:related|mixed)}) {
     my @parts = $to_send->subparts;
     if ($parts[0]->content_type =~ m{^text/plain}) {
@@ -26,7 +27,7 @@ sub markdown_email {
 
       my $alt = Email::MIME->create(
         attributes => { content_type => 'multipart/alternative' },
-        parts      => [ $html, $text ],
+        parts      => [ $text, $html ],
       );
 
       $to_send->parts_set([ $alt, @parts ]);
@@ -40,7 +41,19 @@ sub _parts_from_text {
   my ($self, $email) = @_;
 
   my $text = $email->body;
-  my $html = Text::Markdown::markdown($text, { tab_width => 2 });
+  my ($body, $sig) = split /^-- $/m, $text, 2;
+
+  if (($sig =~ tr/\n/\n/) > 5) {
+    $body = $text;
+    $sig  = '';
+  }
+
+  my $html = Text::Markdown::markdown($body, { tab_width => 2 });
+
+  if ($sig) {
+    $html .= sprintf "<pre><code>-- %s</code></pre>",
+             HTML::Entities::encode_entities($sig);
+  }
 
   my $html_part = Email::MIME->create(
     attributes => { content_type => 'text/html', },

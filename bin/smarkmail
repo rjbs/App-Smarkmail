@@ -8,6 +8,7 @@ use Getopt::Long::Descriptive;
 
 my ($opt, $usage) = describe_options(
   'smarkmail %o <recipient>',
+  [ 'from|f=s', 'envelope sender' ],
 );
 
 die $usage->text unless @ARGV;
@@ -18,4 +19,9 @@ my $email = App::Smarkmail->markdown_email($text);
 
 my $sender = Email::Sender::Sendmail->new;
 
-$sender->send($email, { to => [ @ARGV ] });
+$sender->send($email,
+  {
+    to   => [ @ARGV ],
+    ($opt->{from} ? (from => $opt->{from}) : ()),
+  },
+);
