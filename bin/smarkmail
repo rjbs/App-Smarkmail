@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use App::Smarkmail;
+use Email::Sender::Sendmail;
+use Getopt::Long::Descriptive;
+
+my ($opt, $usage) = describe_options(
+  'smarkmail %o <recipient>',
+);
+
+die $usage->text unless @ARGV;
+
+my $text = do { local $/; <STDIN> };
+
+my $email = App::Smarkmail->markdown_email($text);
+
+my $sender = Email::Sender::Sendmail->new;
+
+$sender->send($email, { to => [ @ARGV ] });
