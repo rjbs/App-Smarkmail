@@ -20,17 +20,13 @@ END_EMAIL
 
   my $marked_mail = App::Smarkmail->markdown_email($email);
 
-  diag $marked_mail->as_string;
 }
-
-diag '-' x 70;
 
 {
   my $email = do { local $/; open my $fh, 't/attached.msg'; <$fh> };
 
   my $marked_mail = App::Smarkmail->markdown_email($email);
 
-  # diag $marked_mail->as_string;
 }
 
 ok(1);
