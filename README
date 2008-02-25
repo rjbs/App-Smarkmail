@@ -1,0 +1,4 @@
+
+This is a pipemailer that rewrites text parts to multipart/alternative using
+Markdown.  Consult the POD for more info.
+
