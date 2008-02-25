@@ -18,4 +18,6 @@ requires('Email::Sender::Sendmail'   => 0.000); # requires any release
 requires('Text::Markdown'            => 0.000); # minimum unknown
 requires('HTML::Entities'            => 0.000); # minimum unknown
 
+author_tests('t/author');
+
 WriteAll();
