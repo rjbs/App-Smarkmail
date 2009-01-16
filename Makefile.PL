@@ -14,5 +14,6 @@ requires('Text::Markdown'        => 0.000); # minimum unknown
 repository('http://github.com/rjbs/app-smarkmail');
 
 author_tests('xt');
+auto_manifest;
 
 WriteAll();
