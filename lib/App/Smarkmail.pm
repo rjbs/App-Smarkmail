@@ -8,11 +8,11 @@ App::Smarkmail - pipemailer that changes plaintext to multi/alt with Markdown
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =cut
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 use Email::MIME;
 use Email::MIME::Creator;
