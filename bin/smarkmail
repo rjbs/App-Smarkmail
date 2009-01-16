@@ -15,7 +15,7 @@ smarkmail - send email, converting plain text to multipart/alternative + HTML
 =cut
 
 use App::Smarkmail;
-use Email::Sender::Sendmail;
+use Email::Sender::Transport::Sendmail;
 use Getopt::Long::Descriptive;
 
 my ($opt, $usage) = describe_options(
@@ -29,7 +29,7 @@ my $text = do { local $/; <STDIN> };
 
 my $email = App::Smarkmail->markdown_email($text);
 
-my $sender = Email::Sender::Sendmail->new;
+my $sender = Email::Sender::Transport::Sendmail->new;
 
 $sender->send($email,
   {
