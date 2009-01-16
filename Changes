@@ -1,5 +1,8 @@
 Revision history for App-Smarkdown
 
+0.003     2009-01-16
+          use released Email::Sender API
+ 
 0.002     2008-02-24
           packaging improvements
 
