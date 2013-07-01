@@ -1,18 +1,7 @@
 use strict;
 use warnings;
 package App::Smarkmail;
-
-=head1 NAME
-
-App::Smarkmail - pipemailer that changes plaintext to multi/alt with Markdown
-
-=head1 VERSION
-
-version 0.003
-
-=cut
-
-our $VERSION = '0.003';
+# ABSTRACT: pipemailer that changes plaintext to multi/alt with Markdown
 
 use Email::MIME;
 use Email::MIME::Creator;
@@ -29,9 +18,7 @@ to multipart alternative, and then sends it via F<sendmail>
 All of this is really sketchy and probably has secret mail-damaging or
 mail-losing bugs.  -- rjbs, 2008-02-24
 
-=head1 METHODS
-
-=head2 markdown_email
+=method markdown_email
 
   my $email = App::Smarkmail->markdown_email($message, \%arg);
 
@@ -118,18 +105,5 @@ sub _parts_from_text {
 
   return ($text_part, $html_part);
 }
-
-=head1 BUGS
-
-Please report any bugs or feature requests through the web interface at
-L<http://rt.cpan.org>. I will be notified, and then you'll automatically be
-notified of progress on your bug as I make changes.
-
-=head1 COPYRIGHT
-
-Copyright 2008, Ricardo SIGNES.  This program is free software;  you can
-redistribute it and/or modify it under the same terms as Perl itself.
-
-=cut
 
 1;
