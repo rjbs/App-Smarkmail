@@ -13,7 +13,7 @@ use warnings;
 =cut
 
 use App::Smarkmail;
-use Email::Sender::Transport::Sendmail;
+use Email::Sender::Simple;
 use Getopt::Long::Descriptive;
 
 my ($opt, $usage) = describe_options(
@@ -29,7 +29,8 @@ my $email = App::Smarkmail->markdown_email($text);
 
 my $sender = Email::Sender::Transport::Sendmail->new;
 
-$sender->send($email,
+Email::Sender::Simple->send(
+  $email,
   {
     to   => [ @ARGV ],
     ($opt->{from} ? (from => $opt->{from}) : ()),
