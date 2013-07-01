@@ -26,7 +26,6 @@ END_EMAIL
   my $email = do { local $/; open my $fh, 't/attached.msg'; <$fh> };
 
   my $marked_mail = App::Smarkmail->markdown_email($email);
-
 }
 
 ok(1);
