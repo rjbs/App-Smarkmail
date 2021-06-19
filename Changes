@@ -1,6 +1,8 @@
 Revision history for App-Smarkdown
 
 {{$NEXT}}
+
+0.005     2021-06-18 22:19:56-04:00 America/New_York
         - update author info, add perl support docs
 
 0.004     2013-07-01 18:24:54 America/New_York
